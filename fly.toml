@@ -1,17 +1,22 @@
-app = "tu-bot-discord"
-primary_region = "mad"  # Madrid, cambia según tu región
+# fly.toml app configuration file generated for onyx on 2025-04-26T12:40:56-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'onyx'
+primary_region = 'iad'
 
 [build]
-  dockerfile = "Dockerfile"
-
-[env]
-  BOT_TOKEN = "tu-token"
-  FLY = "true"  # Para identificar el entorno
-
-[mounts]
-  source = "empleados_data"
-  destination = "/data"
+  builder = "heroku/builder:22"
 
 [http_service]
   internal_port = 3000
   force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
