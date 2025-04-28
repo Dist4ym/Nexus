@@ -9,15 +9,16 @@ primary_region = 'iad'
 [build]
   builder = 'heroku/builder:22'
 
-[processes]
-  app = ""  # Fuerza a Fly.io a mantener el proceso activo
-
 [http_service]
   internal_port = 3000
   force_https = true
-  auto_stop_machines = false  # Evita apagado automático
+  auto_stop_machines = false
   auto_start_machines = true
-  min_machines_running = 1    # Mínimo 1 instancia siempre activa
+  min_machines_running = 1
+  processes = ["app"] 
+
+[processes]
+  app = ""  # Proceso principal
 
 [vm]
   memory = '1gb'
