@@ -1,22 +1,24 @@
-# fly.toml app configuration file generated for onyx on 2025-04-26T12:40:56-03:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'onyx'
-primary_region = 'iad'
+app = "nexus-9kgjsq"
+primary_region = "iad"  # ✔️ Bien (Virginia, EE.UU.)
 
 [build]
-  builder = "heroku/builder:22"
+  builder = "heroku/builder:22"  # ✔️ Correcto para Node.js 20+
 
 [http_service]
-  internal_port = 3000
-  force_https = true
-  auto_stop_machines = 'stop'
+  internal_port = 3000  # ✔️ Puerto donde escucha tu bot
+  force_https = true    # ✔️ Obligatorio para Discord
+  auto_stop_machines = false  # ❌ Cambia de 'stop' a 'false' (para 24/7)
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1    # ✔️ Mínimo 1 instancia siempre activa
 
-[[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
+[vm]
+  memory = "1gb"       # ✔️ Suficiente para un bot estándar
+  cpu_kind = "shared"  # ✔️ Opción económica
+  cpus = 1             # ✔️ Adecuado para bots pequeños/medianos
+
+[[mounts]]
+  source = "data"      # ✔️ Volumen persistente
+  destination = "/data"
+  # Añade esto si usas SQLite:
+  [mounts.options]
+    encrypt = true     # ✔️ Encriptación para seguridad
