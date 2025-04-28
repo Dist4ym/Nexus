@@ -1,24 +1,29 @@
-app = "nexus-9kgjsq"
-primary_region = "iad"  # ✔️ Bien (Virginia, EE.UU.)
+# fly.toml app configuration file generated for nexus-9kgjsq on 2025-04-28T11:03:30-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'nexus-9kgjsq'
+primary_region = 'iad'
 
 [build]
-  builder = "heroku/builder:22"  # ✔️ Correcto para Node.js 20+
+  builder = 'heroku/builder:22'
+
+[processes]
+  app = ""  # Fuerza a Fly.io a mantener el proceso activo
 
 [http_service]
-  internal_port = 3000  # ✔️ Puerto donde escucha tu bot
-  force_https = true    # ✔️ Obligatorio para Discord
-  auto_stop_machines = false  # ❌ Cambia de 'stop' a 'false' (para 24/7)
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false  # Evita apagado automático
   auto_start_machines = true
-  min_machines_running = 1    # ✔️ Mínimo 1 instancia siempre activa
+  min_machines_running = 1    # Mínimo 1 instancia siempre activa
 
 [vm]
-  memory = "1gb"       # ✔️ Suficiente para un bot estándar
-  cpu_kind = "shared"  # ✔️ Opción económica
-  cpus = 1             # ✔️ Adecuado para bots pequeños/medianos
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
 
 [[mounts]]
-  source = "data"      # ✔️ Volumen persistente
-  destination = "/data"
-  # Añade esto si usas SQLite:
-  [mounts.options]
-    encrypt = true     # ✔️ Encriptación para seguridad
+  source = 'data'
+  destination = '/data'
